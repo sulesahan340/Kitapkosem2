@@ -2,7 +2,6 @@
 <%
   HttpSession oturum = request.getSession(false);
 
-
   if (oturum == null || oturum.getAttribute("kullanici_id") == null) {
     if (oturum != null && oturum.getAttribute("misafir") != null) {
       response.sendRedirect("register.jsp");
@@ -14,113 +13,122 @@
 
   String kullaniciAdi = (String) oturum.getAttribute("kullanici_adi");
 %>
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Yeni Kitap Ekle</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       background-color: #6a4baf;
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
       padding: 40px;
     }
 
-    .selam {
-      font-size: 18px;
-      margin-bottom: 20px;
-      align-self: flex-start;
-    }
-
-    h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    form {
-      background-color: #ffffff22;
-      padding: 30px;
-      border-radius: 12px;
-      width: 350px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(6px);
+      padding: 30px 40px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .form-container h2 {
+      color: #fff;
+      margin-bottom: 25px;
+      font-weight: bold;
+      text-align: center;
     }
 
     label {
-      font-weight: bold;
+      color: #fff;
+      font-weight: 600;
     }
 
-    input[type="text"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
+    .form-control {
       margin-bottom: 20px;
-      border-radius: 5px;
-      border: none;
+      border-radius: 8px;
     }
 
-    textarea {
-      resize: vertical;
-    }
-
-    input[type="submit"] {
+    .btn-primary {
       background-color: #fff;
       color: #6a4baf;
-      border: none;
-      padding: 10px 20px;
       font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      width: 100%;
     }
 
-    input[type="submit"]:hover {
-      background-color: #ddd;
+    .btn-primary:hover {
+      background-color: #e0d8ff;
+    }
+
+    .selam {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 15px;
+      text-align: center;
     }
 
     .geri-don {
-      margin-top: 30px;
-      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 20px;
       color: #ddd;
       font-size: 14px;
-      transition: color 0.3s ease;
+      text-decoration: none;
     }
 
     .geri-don:hover {
-      color: white;
+      color: #fff;
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-<div class="selam"> Merhaba <strong><%= kullaniciAdi %></strong>, yeni bir kitap ekleyebilirsin:):</div>
+<div class="form-container">
+  <div class="selam">Merhaba <strong><%= kullaniciAdi %></strong>, yeni bir kitap ekleyebilirsin :)</div>
 
-<h2>Yeni Kitap Ekle</h2>
+  <h2>Yeni Kitap Ekle</h2>
 
-<form action="AddBookServlet" method="post">
-  <label for="baslik">BASLIK:</label>
-  <input type="text" id="baslik" name="baslik" required>
+  <form action="AddBookServlet" method="post">
+    <div class="mb-3">
+      <label for="baslik" class="form-label">Başlık:</label>
+      <input type="text" id="baslik" name="baslik" class="form-control" required>
+    </div>
 
-  <label for="yazar">YAZAR:</label>
-  <input type="text" id="yazar" name="yazar" required>
+    <div class="mb-3">
+      <label for="yazar" class="form-label">Yazar:</label>
+      <input type="text" id="yazar" name="yazar" class="form-control" required>
+    </div>
 
-  <label for="tur">TUR:</label>
-  <input type="text" id="tur" name="tur">
+    <div class="mb-3">
+      <label for="tur" class="form-label">Tür:</label>
+      <input type="text" id="tur" name="tur" class="form-control">
+    </div>
 
-  <label for="aciklama">ACIKLAMA:</label>
-  <textarea id="aciklama" name="aciklama" rows="4"></textarea>
+    <div class="mb-3">
+      <label for="aciklama" class="form-label">Açıklama:</label>
+      <textarea id="aciklama" name="aciklama" rows="4" class="form-control"></textarea>
+    </div>
 
-  <input type="submit" value="Kaydet">
-</form>
+    <input type="submit" value="Kaydet" class="btn btn-primary">
+  </form>
 
-<a href="kitaplar.jsp" class="geri-don"> Geri Don</a>
+  <a href="kitaplar.jsp" class="geri-don">← Geri Dön</a>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

@@ -32,10 +32,15 @@
   <title>Kitap Listesi</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .custom-container {
+      max-width: 1000px;
+    }
+  </style>
 </head>
 <body>
-<div class="container mt-5">
-  <h2 class="mb-4">Kitap Listesi</h2>
+<div class="container custom-container mt-5">
+  <h2 class="mb-4 text-center">Kitap Listesi</h2>
 
   <!-- Arama Formu -->
   <form method="get" class="mb-4">
@@ -46,7 +51,9 @@
   </form>
 
   <% if (!misafir) { %>
-  <a href="kitap_ekle.jsp" class="btn btn-primary mb-3">Yeni Kitap Ekle</a>
+  <div class="mb-3 text-end">
+    <a href="kitap_ekle.jsp" class="btn btn-primary">Yeni Kitap Ekle</a>
+  </div>
   <% } else { %>
   <div class="alert alert-warning">
     Misafir olarak giriş yaptınız. Kitap eklemek için <a href="register.jsp">kayıt olun</a>.
@@ -73,30 +80,32 @@
   <%
   } else {
   %>
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
-    <tr>
-      <th>BASLIK</th>
-      <th>YAZAR</th>
-      <th>TÜR</th>
-      <th>AÇIKLAMA</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
-      while (rs.next()) {
-    %>
-    <tr>
-      <td><a href="kitapDetay.jsp?id=<%= rs.getInt("id") %>"><%= rs.getString("baslik") %></a></td>
-      <td><%= rs.getString("yazar") %></td>
-      <td><%= rs.getString("tur") %></td>
-      <td><%= rs.getString("aciklama") %></td>
-    </tr>
-    <%
-      }
-    %>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-dark">
+      <tr>
+        <th>BASLIK</th>
+        <th>YAZAR</th>
+        <th>TÜR</th>
+        <th>AÇIKLAMA</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%
+        while (rs.next()) {
+      %>
+      <tr>
+        <td><a href="kitapDetay.jsp?id=<%= rs.getInt("id") %>"><%= rs.getString("baslik") %></a></td>
+        <td><%= rs.getString("yazar") %></td>
+        <td><%= rs.getString("tur") %></td>
+        <td><%= rs.getString("aciklama") %></td>
+      </tr>
+      <%
+        }
+      %>
+      </tbody>
+    </table>
+  </div>
   <%
     }
   } catch (Exception e) {
